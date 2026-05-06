@@ -1918,14 +1918,14 @@
                         <div class="account-entry">
                             <div class="account-bank">농협</div>
                             <div class="account-number">255-12-181537 <span class="account-holder">이나경</span></div>
-                            <button class="account-copy-btn" onclick="copyAccount('110-285-920083', this)">
+                            <button class="account-copy-btn" onclick="copyAccount(this)">
                                 계좌번호 복사
                             </button>
                         </div>
                         <div class="account-entry">
                             <div class="account-bank">신한은행</div>
                             <div class="account-number">110-285-920083 <span class="account-holder">이원준</span></div>
-                            <button class="account-copy-btn" onclick="copyAccount('000-000-000000', this)">
+                            <button class="account-copy-btn" onclick="copyAccount(this)">
                                 계좌번호 복사
                             </button>
                         </div>
@@ -1950,21 +1950,21 @@
                         <div class="account-entry">
                             <div class="account-bank">국민은행</div>
                             <div class="account-number">412725-85-007925 <span class="account-holder">안성균</span></div>
-                            <button class="account-copy-btn" onclick="copyAccount('994814-716-49', this)">
+                            <button class="account-copy-btn" onclick="copyAccount(this)">
                                 계좌번호 복사
                             </button>
                         </div>
                         <div class="account-entry">
                             <div class="account-bank">국민은행</div>
                             <div class="account-number">409101-01-236277 <span class="account-holder">기은정</span></div>
-                            <button class="account-copy-btn" onclick="copyAccount('000-00-0000-000', this)">
+                            <button class="account-copy-btn" onclick="copyAccount(this)">
                                 계좌번호 복사
                             </button>
                         </div>
                         <div class="account-entry">
                             <div class="account-bank">국민은행</div>
                             <div class="account-number">994814-716-49 <span class="account-holder">안다연</span></div>
-                            <button class="account-copy-btn" onclick="copyAccount('000-00-0000-000', this)">
+                            <button class="account-copy-btn" onclick="copyAccount(this)">
                                 계좌번호 복사
                             </button>
                         </div>
@@ -2192,9 +2192,19 @@
             card.classList.toggle('open');
         }
 
-        // 계좌번호 복사
-        function copyAccount(text, btn) {
-            navigator.clipboard.writeText(text).then(() => {
+        // 계좌번호 복사 (같은 행의 .account-number에서 번호만 추출)
+        function copyAccount(btn) {
+            const entry = btn.closest('.account-entry');
+            const numEl = entry && entry.querySelector('.account-number');
+            if (!numEl) return;
+
+            // .account-holder(예금주명) 제외하고 계좌번호만 가져오기
+            const clone = numEl.cloneNode(true);
+            const holder = clone.querySelector('.account-holder');
+            if (holder) holder.remove();
+            const text = clone.textContent.trim();
+
+            const showCopied = () => {
                 const orig = btn.textContent;
                 btn.textContent = '복사되었습니다';
                 btn.classList.add('copied');
@@ -2202,7 +2212,24 @@
                     btn.textContent = orig;
                     btn.classList.remove('copied');
                 }, 2000);
-            });
+            };
+
+            function fallbackCopy() {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select();
+                try { document.execCommand('copy'); showCopied(); } catch (e) { /* noop */ }
+                document.body.removeChild(ta);
+            }
+
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(showCopied).catch(fallbackCopy);
+            } else {
+                fallbackCopy();
+            }
         }
 
         // RSVP 폼은 Firebase 모듈 스크립트에서 처리
