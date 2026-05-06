@@ -431,40 +431,6 @@
             background: rgba(244, 241, 236, 0.5);
         }
 
-        /* 좌측 세로 텍스트 */
-        .vertical-meta {
-            position: absolute;
-            top: 50%;
-            left: 18px;
-            transform: translateY(-50%) rotate(-90deg);
-            transform-origin: left center;
-            white-space: nowrap;
-            font-size: 9px;
-            letter-spacing: 5px;
-            color: rgba(244, 241, 236, 0.7);
-            z-index: 10;
-            opacity: 0;
-            animation: fadeIn 1.8s ease-out 2s forwards;
-            text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
-        }
-
-        /* 우측 세로 텍스트 */
-        .vertical-meta-right {
-            position: absolute;
-            top: 50%;
-            right: 18px;
-            transform: translateY(-50%) rotate(90deg);
-            transform-origin: right center;
-            white-space: nowrap;
-            font-size: 9px;
-            letter-spacing: 5px;
-            color: rgba(244, 241, 236, 0.7);
-            z-index: 10;
-            opacity: 0;
-            animation: fadeIn 1.8s ease-out 2s forwards;
-            text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
-        }
-
         /* 메인 타이포 영역 */
         .hero-text {
             position: absolute;
@@ -477,8 +443,8 @@
         }
 
         .eyebrow {
-            font-size: 11.5px;
-            letter-spacing: 7px;
+            font-size: 9.5px;
+            letter-spacing: 6px;
             font-weight: 400;
             color: rgba(244, 241, 236, 1);
             margin-bottom: 24px;
@@ -492,11 +458,11 @@
         .eyebrow::after {
             content: '';
             display: inline-block;
-            width: 22px;
+            width: 14px;
             height: 1px;
             background: rgba(244, 241, 236, 0.85);
             vertical-align: middle;
-            margin: 0 12px;
+            margin: 0 10px;
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
         }
 
@@ -659,8 +625,8 @@
             }
 
             .eyebrow {
-                font-size: 11px;
-                letter-spacing: 4px;
+                font-size: 9px;
+                letter-spacing: 3.5px;
             }
 
             .inv-title-script {
@@ -1654,10 +1620,6 @@
         <!-- 눈 입자 -->
         <div class="particles" id="particles"></div>
 
-
-        <!-- 좌우 세로 텍스트 -->
-        <div class="vertical-meta">THE WEDDING OF</div>
-        <div class="vertical-meta-right">SEOUL · YEOKSAM</div>
 
         <!-- 메인 타이포 -->
         <div class="hero-text">
